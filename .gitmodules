@@ -1,0 +1,3 @@
+[submodule "awesome-cv"]
+	path = awesome-cv
+	url = git@github.com:posquit0/Awesome-CV
