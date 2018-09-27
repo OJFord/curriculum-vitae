@@ -1,0 +1,43 @@
+version: 2
+
+
+jobs:
+  render:
+    docker:
+      - image: makisyu/texlive-2018
+
+    steps:
+      - checkout
+
+      - run:
+          name: Acquire awesome-cv
+          command: |
+            dnf -y update && dnf -y install git
+            mkdir -p ~/.ssh
+            echo -e 'Host github.com\n\tStrictHostKeyChecking no\n' >> ~/.ssh/config
+            git submodule update --init --recursive
+
+      - run: make cv.pdf
+
+      - run:
+          name: Collect artefacts
+          command: |
+            mkdir artefacts
+            mv cv.log cv.pdf artefacts || true
+          when: always
+
+      - store_artifacts:
+          path: artefacts
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - artefacts
+
+workflows:
+  version: 2
+
+  workflow:
+    jobs:
+      - render
+    
