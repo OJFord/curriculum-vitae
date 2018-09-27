@@ -17,7 +17,15 @@ jobs:
             echo -e 'Host github.com\n\tStrictHostKeyChecking no\n' >> ~/.ssh/config
             git submodule update --init --recursive
 
+      - restore_cache:
+          key: luatex-cache
+
       - run: make cv.pdf
+
+      - save_cache:
+          key: luatex-cache
+          paths:
+            - /usr/local/texlive/2018/texmf-var/luatex-cache
 
       - run:
           name: Collect artefacts
