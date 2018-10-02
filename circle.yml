@@ -4,7 +4,7 @@ version: 2
 jobs:
   render:
     docker:
-      - image: makisyu/texlive-2018
+      - image: ojford/texlive:latest
 
     steps:
       - checkout
@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Acquire awesome-cv
           command: |
-            dnf -y update && dnf -y install git
+            apk add openssh git
             mkdir -p ~/.ssh
             echo -e 'Host github.com\n\tStrictHostKeyChecking no\n' >> ~/.ssh/config
             git submodule update --init --recursive
@@ -20,12 +20,16 @@ jobs:
       - restore_cache:
           key: luatex-cache
 
-      - run: make cv.pdf
+      - run:
+          name: Make CV
+          command: |
+            apk add make
+            make cv.pdf
 
       - save_cache:
           key: luatex-cache
           paths:
-            - /usr/local/texlive/2018/texmf-var/luatex-cache
+            - /usr/local/texlive/texmf-var/luatex-cache
 
       - run:
           name: Collect artefacts
