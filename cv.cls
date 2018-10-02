@@ -3,6 +3,10 @@
 
 \LoadClass{awesome-cv/awesome-cv}
 
+%
+% Modifications
+%
+
 % change default colour
 \colorlet{awesome}{awesome-darknight}
 
@@ -68,4 +72,20 @@
     \end{itemize}
   \end{justify}
   \vspace{-4.0mm}
+}
+
+
+%
+% Additions
+%
+
+% as \cventry, but squashed up to meet more recent role above; no company/location.
+\newcommand{\cventryprevrole}[3]{
+  \vspace{-3.0mm}
+  \setlength\tabcolsep{0pt}
+  \setlength{\extrarowheight}{0pt}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{4.5cm} L{\textwidth - 4.5cm}}
+    \entrydatestyle{#2} & \entrypositionstyle{#1} \\
+    & \descriptionstyle{#3}
+  \end{tabular*}
 }
