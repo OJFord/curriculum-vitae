@@ -93,3 +93,6 @@ workflows:
       - release:
           requires:
             - render
+          filters:
+            branches:
+              only: master
