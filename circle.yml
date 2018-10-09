@@ -1,0 +1,98 @@
+version: 2
+
+
+jobs:
+  render:
+    docker:
+      - image: ojford/texlive:latest
+
+    steps:
+      - checkout
+
+      - run:
+          name: Acquire awesome-cv
+          command: |
+            apk add openssh git
+            mkdir -p ~/.ssh
+            echo -e 'Host github.com\n\tStrictHostKeyChecking no\n' >> ~/.ssh/config
+            git reset && git checkout .
+            git submodule sync
+            git submodule update --init --recursive
+
+      - restore_cache:
+          key: luatex-cache
+
+      - run:
+          name: Make CV
+          command: |
+            apk add make
+            make cv.pdf
+
+      - save_cache:
+          key: luatex-cache
+          paths:
+            - /usr/local/texlive/texmf-var/luatex-cache
+
+      - run:
+          name: Collect artefacts
+          command: |
+            mkdir artefacts
+            mv cv.log cv.pdf artefacts || true
+          when: always
+
+      - store_artifacts:
+          path: artefacts
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - artefacts
+
+  release:
+    machine: true
+
+    steps:
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Create release
+          command: |
+            curl --fail \
+              --request POST \
+              --header 'Content-Type: application/json' \
+              --data "$(jq -n \
+                --arg name "$(date +'%Y-%m-%d')" \
+                --arg sha "$CIRCLE_SHA1" \
+                '{tag_name:$name,target_commitish:$sha}'
+              )" \
+              --dump-header headers \
+              --user "OJFord:$GITHUB_ACCESS_TOKEN" \
+              https://api.github.com/repos/OJFord/curriculum-vitae/releases
+
+            the_release="$(grep Location headers | sed -e 's/Location: //' -e 's://api://uploads:' | tr --delete '\r')"
+
+            curl --fail \
+              --request POST \
+              --header 'Content-Type: application/pdf' \
+              --data-binary @artefacts/cv.pdf \
+              --user "OJFord:$GITHUB_ACCESS_TOKEN" \
+              "$the_release/assets?name=ojford-cv-$(date +'%Y-%m-%d').pdf"
+
+      - store_artifacts:
+          path: artefacts
+
+
+workflows:
+  version: 2
+
+  workflow:
+    jobs:
+      - render
+
+      - release:
+          requires:
+            - render
+          filters:
+            branches:
+              only: master
