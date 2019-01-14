@@ -64,7 +64,7 @@ jobs:
               --data "$(jq -n \
                 --arg name "$(date +'%Y-%m-%d')" \
                 --arg sha "$CIRCLE_SHA1" \
-                '{tag_name:$name,target_commitish:$sha}'
+                '{tag_name:$name,name:$name,target_commitish:$sha}'
               )" \
               --dump-header headers \
               --user "OJFord:$GITHUB_ACCESS_TOKEN" \
