@@ -89,3 +89,8 @@
     & \descriptionstyle{#3}
   \end{tabular*}
 }
+
+% ORCID
+\newcommand{\orcid}[1]{
+  \extrainfo{\href{https://orcid.org/#1}{\faOrcid\acvHeaderIconSep#1}}
+}
