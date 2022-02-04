@@ -23,7 +23,7 @@ jobs:
       - name: Make CV
         run: |
           apk add make
-          make cv.pdf
+          make
           mkdir -p /artefacts
           mv cv.log cv.pdf /artefacts
 
