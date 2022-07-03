@@ -74,19 +74,28 @@
   \vspace{-4.0mm}
 }
 
-
 %
 % Additions
 %
 
-% as \cventry, but squashed up to meet more recent role above; no company/location.
-\newcommand{\cventryprevrole}[3]{
+% like \cventry, but reduced to just company & (added) overview - useful for \cventryrole
+\newcommand*{\cventryjob}[2]{
+  \setlength\tabcolsep{0pt}
+  \setlength{\extrarowheight}{0pt}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{4.5cm} L{\textwidth - 4.5cm}}
+    & \entrytitlestyle{#1} \\
+    & \descriptionstyle{#2}
+  \end{tabular*}
+}
+
+% as original \cventry, but layout changed & squashed up to meet more recent role above; no company/overview.
+\newcommand{\cventryrole}[4]{
   \vspace{-3.0mm}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{4.5cm} L{\textwidth - 4.5cm}}
-    \entrydatestyle{#2} & \entrypositionstyle{#1} \\
-    & \descriptionstyle{#3}
+    \entrydatestyle{#2}\newline\entrylocationstyle{#3} & \entrypositionstyle{#1} \\
+    & \descriptionstyle{#4}
   \end{tabular*}
 }
 
