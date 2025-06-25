@@ -98,10 +98,3 @@
     & \descriptionstyle{#4}
   \end{tabular*}
 }
-
-\newfontfamily\devanagarifont[
-  Path=extra-fonts/,
-  Script=Devanagari,
-  UprightFont=*-Light.ttf,
-  BoldFont=*-Medium.ttf,
-]{Noto Sans Devanagari}
