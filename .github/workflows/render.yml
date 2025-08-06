@@ -52,12 +52,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
 
       - uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.release.outputs.upload_url }}
-          asset_path: artifact/cv.pdf
+          asset_path: cv.pdf
           asset_name: ojford-cv-${{ steps.release-metadata.outputs.name }}.pdf
           asset_content_type: application/pdf
         env:
