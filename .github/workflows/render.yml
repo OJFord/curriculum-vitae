@@ -11,7 +11,7 @@ jobs:
     steps:
       - run: apk add git openssh
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           submodules: recursive
 
@@ -38,7 +38,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - id: release-metadata
         run:
