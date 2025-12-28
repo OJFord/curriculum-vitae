@@ -1,7 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{cv}
 
-\LoadClass{awesome-cv/awesome-cv}
+\makeatletter
+\def\input@path{{./awesome-cv/}}
+\makeatother
+\LoadClass{awesome-cv}
 
 %
 % Modifications
