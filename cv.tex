@@ -13,12 +13,25 @@
 \linkedin{OJFord}
 \orcid{0000-0003-2402-5168}
 
+\def\numword#1{%
+  \ifcase#1 zero\or one\or two\or three\or four\or five\or six\or seven\or eight\or nine\or ten
+  \else #1
+\fi}
+
+\usepackage{pgfmath,pgfcalendar}
+\newcount\tmpA
+\pgfcalendardatetojulian{2017-09-01}{\tmpA} % start date post-graduation
+\newcount\tmpB
+\pgfcalendardatetojulian{\year-\month-\day}{\tmpB} % today
+\advance\tmpB by -\tmpA
+\pgfmathparse{floor((\the\tmpB)/365.2425) + 1} % full years experience, +1y at Arm pre-graduation
+\edef\YearsExperience{\pgfmathresult}
 
 \begin{document}
 \makecvheader[C]
 \makecvfooter{\cleanlookdateon\today}{cv.ojford.com}{\thepage}
 
-Senior IC \& technical leader in platform \& backend software engineering, with eight years' professional experience delivering cost-effective and pragmatic designs, supporting junior colleagues, and raising standards through processes and peer learning.
+Senior IC \& technical leader in platform \& backend software engineering, with \numword{\YearsExperience} years' professional experience delivering cost-effective and pragmatic designs, supporting junior colleagues, and raising standards through processes and peer learning.
 
 \input{cv/education.tex}
 
