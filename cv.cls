@@ -24,7 +24,7 @@
   \vspace{-2.0mm}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{4.5cm} L{\textwidth - 4.5cm}}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{3.25cm} L{\textwidth - 3.25cm}}
     \entrydatestyle{#4} & \entrytitlestyle{#2} \\
     \entrylocationstyle{#3} & \entrypositionstyle{#1} \\
     & \descriptionstyle{#5}
@@ -58,10 +58,11 @@
   \begin{center}
     \setlength\tabcolsep{1ex}
     \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} R{4.5cm * \real{0.9}} L{{\textwidth - 4.5cm} * \real{0.9}}}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} R{3.25cm * \real{0.9}} L{{\textwidth - 3.25cm} * \real{0.9}}}
 }{
     \end{tabular*}
   \end{center}
+  \nopagebreak
 }
 
 % change alignment
@@ -85,18 +86,20 @@
 \newcommand*{\cventryjob}[2]{
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{4.5cm} L{\textwidth - 4.5cm}}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{1cm} L{\textwidth - 1cm}}
     & \entrytitlestyle{#1} \\
     & \descriptionstyle{#2}
   \end{tabular*}
+  \nopagebreak
 }
 
 % as original \cventry, but layout changed & squashed up to meet more recent role above; no company/overview.
 \newcommand{\cventryrole}[4]{
-  \vspace{-3.0mm}
+
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{4.5cm} L{\textwidth - 4.5cm}}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{3.25cm} L{\textwidth - 3.25cm}}
+    \nopagebreak
     \entrydatestyle{#2}\newline\entrylocationstyle{#3} & \entrypositionstyle{#1} \\
     & \descriptionstyle{#4}
   \end{tabular*}
