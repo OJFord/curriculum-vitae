@@ -23,6 +23,11 @@ jobs:
       - name: Make CV
         run: |
           apk add make
+          wget -O source-sans.zip 'https://github.com/adobe-fonts/source-sans/releases/download/3.052R/TTF-source-sans-3.052R.zip'
+          export OSFONTDIR=/usr/share/texmf-dist/fonts/truetype/source-sans
+          mkdir -p "$OSFONTDIR"
+          unzip -j source-sans.zip 'TTF/*.ttf' -d "$OSFONTDIR"
+          luaotfload-tool --update
           make
           mkdir -p /artefacts
           mv cv.log cv.pdf /artefacts
